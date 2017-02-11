@@ -9,7 +9,6 @@ module.exports = {
 
     // Get the socket ID from the reauest
     var socketId = sails.sockets.id(req);
-
     // Get the session from the request
     var session = req.session;
 

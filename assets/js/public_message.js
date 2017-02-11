@@ -13,7 +13,7 @@ function createPublicRoom(room) {
   var roomDiv = $('<div id="'+roomName+'"></div>');
 
   // Create the HTML for the room
-  var roomHTML = '<h2>Chat room &ldquo;'+room.name+'&rdquo; <button id="leave-room-button-'+room.id+'">Leave Room</button></h2>\n' +
+  var roomHTML = '<h2>  Chat room &ldquo;'+room.name+'&rdquo; <button id="leave-room-button-'+room.id+'">Leave Room</button></h2>\n' +
                  '<div id="room-messages-'+room.id+'" style="width: 50%; height: 150px; overflow: auto; border: solid 1px #666; padding: 5px; margin: 5px"></div>'+
                  '<input id="room-message-'+room.id+'"/> <button id="room-button-'+room.id+'">Send message</button">';
 

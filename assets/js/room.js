@@ -54,8 +54,12 @@ function increaseRoomCount(roomId) {
   room.html(room.attr('data-name')+' ('+numUsers+')');
   room.hide();
   // Change the title of the current room chat
-  var title = $('#public-room-' + roomId).find('h2');
-  title.prepend(numUsers + ' current user ');
+    if($('#title-' + roomId).length != 0) {
+        $('#title-' + roomId).html(numUsers + ' current users');
+    } else {
+        var title = $('#public-room-' + roomId).find('h2');
+        title.prepend('<ul id ="title-' + roomId + '">' + numUsers + ' current users </ul>');
+    }
 }
 
 // Decrease the "number of users in room" indicator label for a room
@@ -66,6 +70,9 @@ function decreaseRoomCount(roomId) {
   room.attr('data-users', numUsers);
   room.html(room.attr('data-name')+' ('+numUsers+')');
   room.show();
+  if (numUsers > 1) {
+      $('#title-' + roomId).html(numUsers + ' current users');
+  }
 }
 
 // Remove a user from the list of available rooms to join, by sending
