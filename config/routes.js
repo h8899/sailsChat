@@ -30,6 +30,9 @@ module.exports.routes = {
     view: 'homepage'
   },
 
+    '/upload-file':{
+        view: 'uploadfile'  // view 'uploadfile' in views directory will loaded automatically
+    },
   'post /room/:roomId/users': 'RoomController.join',
   'delete /room/:roomId/users': 'RoomController.leave'
 
