@@ -117,7 +117,12 @@ io.socket.on('connect', function socketConnected() {
         // User instance will get this message--see the onConnect logic in config/sockets.js
         // to see where a new user gets subscribed to their own "message" context
         case 'messaged':
-          receivePrivateMessage(message.data);
+          if (message.data.tag == true) {
+              console.log("here");
+              notifyUser(message.data.from, message.data.roomId);
+          } else {
+              receivePrivateMessage(message.data);
+          }
           break;
 
         default:

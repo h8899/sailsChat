@@ -13,7 +13,8 @@ function createPublicRoom(room) {
   var roomDiv = $('<div id="'+roomName+'"></div>');
 
   // Create the HTML for the room
-  var roomHTML = '<h2>  Chat room &ldquo;'+room.name+'&rdquo; <button id="leave-room-button-'+room.id+'">Leave Room</button></h2>\n' +
+  var roomHTML = '<h2>  Chat room &ldquo;'+room.name+'&rdquo; <button id="leave-room-button-'+room.id+'">Leave Room</button>' +
+                 '<button id="tag-' + room.id + '"> Tag notify</button></h2>\n' +
                  '<div id="room-messages-'+room.id+'" style="width: 50%; height: 150px; overflow: auto; border: solid 1px #666; padding: 5px; margin: 5px"></div>'+
                  '<input id="room-message-'+room.id+'"/> <button id="room-button-'+room.id+'">Send message</button">';
 
@@ -27,6 +28,7 @@ function createPublicRoom(room) {
 
   // Hook up the "leave room" button
   $('#leave-room-button-'+room.id).click(onClickLeaveRoom);
+  $('#tag-'+room.id).click(sendNotification);
 
 }
 
@@ -128,4 +130,34 @@ function onClickLeaveRoom(e) {
   // Update the room user count
   decreaseRoomCount(roomId);
 
+}
+
+// Tag someone with this function
+function sendNotification(e) {
+  var button = e.currentTarget;
+
+  // get the Id of the room
+  var roomId = button.id.split('-')[1];
+  // get the receiver
+  var recipientName = $('#room-message-'+roomId).val();
+  $('#room-message-'+roomId).val(' ');
+
+      // post to /user/tag
+    io.socket.post('/user/tag', {roomId: roomId, to: recipientName});
+}
+
+// alert the user with notification
+function notifyUser(senderId, roomId) {
+  /*User.find({id : senderId}).exec(function(err, person) {
+      Room.find({id: roomId}).exec(function(err2, room) {
+          if (err) {
+              return res.serverError(err);
+          } else if (err2) {
+              return res.serverError(err2);
+          } else {
+              Window.alert("You are tagged by" + person.name + " in room " + room.name);
+          }
+      });
+  });*/
+  alert("hieu");
 }

@@ -32,7 +32,7 @@ module.exports = {
       // user changing their name or being destroyed, ONLY this particular socket
       // will receive "message" events.  This allows us to send private messages
       // between users.
-      User.subscribe(req, user, 'message');
+      User.subscribe(req, user.id, 'message');
 
       // Get updates about users being created
       User.watch(req);
@@ -48,6 +48,30 @@ module.exports = {
     });
 
 
-  }
+  },
+
+  tag: function(req, res) {
+
+      var socketId = sails.sockets.id(req.socket);
+      // Use that ID to look up the user in the session
+      // We need to do this because we can have more than one user
+      // per session, since we're creating one user per socket
+      User.findOne({name: req.param('to')}).exec(function(err1, receiver) {
+         User.findOne(req.session.users[socketId].id).exec(function(err, sender) {
+          // Publish a message to that user's "room".  In our app, the only subscriber to that
+          // room will be the socket that the user is on (subscription occurs in the onConnect
+          // method of config/sockets.js), so only they will get this message.
+             if (err1) {
+                 return res.serverError(err1);
+             } else if (err2) {
+                return res.serverError(err2);
+             }
+              User.message(receiver.id, {
+                   tag: true
+                   from: sender,
+                   roomId: req.param['roomId']
+              });
+         });
+       });
 
 };
