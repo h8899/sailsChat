@@ -31,7 +31,7 @@ module.exports = {
                 // user changing their name or being destroyed, ONLY this particular socket
                 // will receive "message" events.  This allows us to send private messages
                 // between users.
-                User.subscribe(req, req.session.me, 'message');
+                User.subscribe(req, user.id, 'message');
 
                 // Get updates about users being created
                 User.watch(req);
