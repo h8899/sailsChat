@@ -15,5 +15,12 @@
 	    <button id="new-room">Start a new room</button>
 	    <div id="rooms"></div>
 	</div>
+
+    <% if (req.session.me) { %>
+	<a href="/logout">Logout</a>
+    <% } else { %>
+	<a href="/login">Login</a> | <a href="/signup">Signup</a>
+    <% } %>
+
 </div>
 <div id="disconnect" style="display:none">Waiting for reconnect...</div>

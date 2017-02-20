@@ -1,4 +1,4 @@
-/**
+    /**
  * app.js
  *
  * Front-end code and event handling for sailsChat

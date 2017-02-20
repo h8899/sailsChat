@@ -17,6 +17,17 @@ module.exports = {
   attributes: {
 
     name: 'string',
+
+    email : {
+      type: 'email',
+      required: true
+    },
+
+    password: {
+      type: 'string',
+      required: true
+    },
+
     rooms: {
       collection: 'room',
       via: 'users',
@@ -50,6 +61,50 @@ module.exports = {
 
     });
 
-  }
+  },
+
+  /**
+    * Create a new user using the provided inputs,
+    * but encrypt the password first.
+    *
+    * @param  {Object}   inputs
+    *                     • name     {String}
+    *                     • email    {String}
+    *                     • password {String}
+    * @param  {Function} cb
+   */
+
+    signup: function (inputs, cb) {
+        // Create a user
+        User.create({
+          name: inputs.name,
+          email: inputs.email,
+          // TODO: Need to encrypt the password first
+          password: inputs.password
+    })
+        .exec(cb);
+    },
+
+
+
+    /**
+     * Check validness of a login using the provided inputs.
+     * But encrypt the password first.
+     *
+     * @param  {Object}   inputs
+     *                     • email    {String}
+     *                     • password {String}
+     * @param  {Function} cb
+     */
+
+    attemptLogin: function (inputs, cb) {
+        // Create a user
+        User.findOne({
+            email: inputs.email,
+            // TODO: But encrypt the password first
+            password: inputs.password
+        })
+            .exec(cb);
+    }
 
 };

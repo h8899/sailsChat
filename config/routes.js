@@ -33,10 +33,22 @@ module.exports.routes = {
     '/upload-file':{
         view: 'uploadfile'  // view 'uploadfile' in views directory will loaded automatically
     },
-  'post /room/:roomId/users': 'RoomController.join',
-  'delete /room/:roomId/users': 'RoomController.leave',
-    'post /user/tag' : 'UserController.tag'
 
+    'get /login': {
+        view : 'user/login'
+    },
+
+    'get /signup': {
+        view: 'user/signup'
+    },
+
+    'post /room/:roomId/users': 'RoomController.join',
+    'delete /room/:roomId/users': 'RoomController.leave',
+    'post /user/tag' : 'UserController.tag',
+
+    'post /login': 'UserController.login',
+    'post /signup': 'UserController.signup',
+    '/logout': 'UserController.logout'
   // Custom routes here...
 
 
