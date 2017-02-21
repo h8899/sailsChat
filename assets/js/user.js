@@ -17,9 +17,12 @@ function addUser(user) {
 
   // Create a new <option> for the <select> with the new user's information
   var option = $('<option id="'+"user-"+user.id+'" value="'+user.id+'">'+(user.name == "unknown" ? "User #" + user.id : user.name)+'</option>');
+  var helper = $('#user-' + user.id);
 
-  // Add the new <option> element
-  select.append(option);
+  // Add the new <option> element only if it does not exist before
+  if (helper.length === 0) {
+      select.append(option);
+  }
 }
 
 // Remove a user from the list of available users to chat with, by sending
