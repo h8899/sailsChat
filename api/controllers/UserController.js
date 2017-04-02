@@ -10,7 +10,6 @@ module.exports = {
         // Get the socket ID from the request
         var socketId = sails.sockets.id(req);
 
-
         // Create the session.users hash if it doesn't exist already
         req.session.users = req.session.users || {};
 
